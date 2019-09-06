@@ -19,6 +19,14 @@ module ProxyFetcher
       node.content
     end
 
+    def attr(name)
+      node[name]?
+    end
+
+    def html
+      node.inner_text || ""
+    end
+
     private def clear(text : String?)
       return "" if text.nil? || text.empty?
 

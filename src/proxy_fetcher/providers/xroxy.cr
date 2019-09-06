@@ -5,12 +5,8 @@ module ProxyFetcher
         "https://www.xroxy.com/free-proxy-lists/"
       end
 
-      def load_proxy_list
-        doc = load_document(provider_url)
-        nodes = doc.xpath("//div/table/tbody/tr")
-        return [] of ProxyFetcher::HTMLNode unless nodes.is_a?(XML::NodeSet)
-
-        nodes.map { |node| ProxyFetcher::HTMLNode.new(node) }
+      def xpath
+        "//div/table/tbody/tr"
       end
 
       def to_proxy(html_node)

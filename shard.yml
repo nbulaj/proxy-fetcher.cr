@@ -15,7 +15,12 @@ license: MIT
 dependencies:
   halite:
     github: icyleaf/halite
+  http_proxy:
+    github: mamantoha/http_proxy
 development_dependencies:
   ameba:
     github: crystal-ameba/ameba
     version: ~> 0.10.0
+  icr:
+    github: crystal-community/icr
+    branch: master

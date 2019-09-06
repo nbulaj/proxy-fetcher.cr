@@ -6,10 +6,16 @@ require "xml"
 require "./proxy_fetcher/configuration"
 require "./proxy_fetcher/configuration/providers_registry"
 require "./proxy_fetcher/proxy"
+require "./proxy_fetcher/proxy/validator"
 require "./proxy_fetcher/html_node"
 require "./proxy_fetcher/http_client"
+require "./proxy_fetcher/manager"
 
 require "./proxy_fetcher/providers/base"
+require "./proxy_fetcher/providers/free_proxy_list"
+require "./proxy_fetcher/providers/free_proxy_list_ssl"
+require "./proxy_fetcher/providers/gather_proxy"
+require "./proxy_fetcher/providers/http_tunnel"
 require "./proxy_fetcher/providers/xroxy"
 
 module ProxyFetcher
@@ -23,8 +29,3 @@ module ProxyFetcher
     yield config
   end
 end
-
-puts "Supported providers: #{ProxyFetcher::Configuration.registered_providers.inspect}"
-
-# p = ProxyFetcher::Providers::XRoxy.new.fetch_proxies!
-# puts p.inspect

@@ -5,6 +5,7 @@ module ProxyFetcher
     property proxy_validation_timeout : Int32
     property pool_size : Int32
     property user_agent : String
+    property providers : Array(String)
 
     # User-Agent string that will be used by the ProxyFetcher HTTP client (to
     # send requests via proxy) and to fetch proxy lists from the sources.
@@ -20,6 +21,7 @@ module ProxyFetcher
       @client_timeout = 3
       @provider_proxies_load_timeout = 30
       @proxy_validation_timeout = 3
+      @providers = self.class.registered_providers
     end
 
     def self.providers_registry

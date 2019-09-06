@@ -12,7 +12,7 @@ module ProxyFetcher
       end
 
       def provider_url
-        raise Exception.new, "must be implemented in a descendant class!"
+        raise Exception.new("must be implemented in a descendant class!")
       end
 
       def provider_method
@@ -41,6 +41,18 @@ module ProxyFetcher
         XML.parse_html(html)
       end
 
+      def load_proxy_list
+        doc = load_document(provider_url)
+        nodes = doc.xpath(xpath)
+        return [] of ProxyFetcher::HTMLNode unless nodes.is_a?(XML::NodeSet)
+
+        nodes.map { |node| ProxyFetcher::HTMLNode.new(node) }
+      end
+
+      def xpath
+        raise Exception.new("`xpath` must be implemented in a descendant class!")
+      end
+
       def build_proxy(*args)
         to_proxy(*args)
       rescue error
@@ -51,10 +63,6 @@ module ProxyFetcher
         nil
       end
 
-      def load_proxy_list(*args)
-        raise Exception.new("`load_proxy_list` must be implemented in a descendant class!")
-      end
-
       # Convert HTML element with proxy info to ProxyFetcher::Proxy instance.
       #
       # Abstract method. Must be implemented in a descendant class
@@ -63,7 +71,7 @@ module ProxyFetcher
       #   new proxy object from the HTML node
       #
       def to_proxy(*args)
-        rraise Exception.new("`to_proxy` must be implemented in a descendant class!")
+        raise Exception.new("`to_proxy` must be implemented in a descendant class!")
       end
     end
   end

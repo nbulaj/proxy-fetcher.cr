@@ -13,7 +13,7 @@ module ProxyFetcher
     end
 
     def class_for(provider_name)
-      providers.fetch(provider_name.to_s)
+      providers[provider_name.to_s]
     rescue KeyError
       raise Exception.new("Unknown provider: #{provider_name}")
     end
