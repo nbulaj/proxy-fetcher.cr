@@ -1,5 +1,7 @@
 # ProxyFetcher.cr
 
+[![Build Status](https://travis-ci.org/nbulaj/proxy-fetcher.cr.svg?branch=master)](https://travis-ci.org/nbulaj/proxy-fetcher.cr)
+
 Crystal port of awesome Ruby [ProxyFetcher gem](https://github.com/nbulaj/proxy_fetcher)
 
 ## License
