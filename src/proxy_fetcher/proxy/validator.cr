@@ -12,21 +12,23 @@ module ProxyFetcher
     # Short variant to validate proxy.
     #
     # @param proxy_addr [String] proxy address or IP
-    # @param proxy_port [String, Integer] proxy port
+    # @param proxy_port [Int32] proxy port
     #
     # @return [Boolean]
     #   true if connection to the server using proxy established, otherwise false
     #
     def self.connectable?(proxy_addr : String, proxy_port : Int32)
       proxy_client = HTTP::Proxy::Client.new(proxy_addr, proxy_port)
+
       http_client = HTTP::Client.new(URI_TO_CHECK)
       http_client.connect_timeout = ProxyFetcher.config.proxy_validation_timeout
       http_client.read_timeout = ProxyFetcher.config.proxy_validation_timeout
       http_client.set_proxy(proxy_client)
-      response = http_client.get("/")
+      http_client.tls.verify_mode = OpenSSL::SSL::VerifyMode::NONE
 
+      response = http_client.get("/")
       response.success?
-    rescue IO::Timeout
+    rescue IO::Timeout | OpenSSL::SSL::Error | IO::Error | Errno
       false
     end
 

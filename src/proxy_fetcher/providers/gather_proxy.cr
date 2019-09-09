@@ -6,7 +6,7 @@ module ProxyFetcher
     class GatherProxy < Base
       # Provider URL to fetch proxy list
       def provider_url
-        "http://www.gather.com/"
+        "http://www.gatherproxy.com/"
       end
 
       def xpath

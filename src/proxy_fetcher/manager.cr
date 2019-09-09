@@ -1,3 +1,5 @@
+require "benchmark"
+
 module ProxyFetcher
   # ProxyFetcher Manager class for interacting with proxy lists from various providers.
   class Manager
@@ -27,13 +29,19 @@ module ProxyFetcher
     #
     def refresh_list!
       @proxies = [] of Proxy
+      channel = Channel(Array(Proxy)).new
 
-      # TODO: threading!
       ProxyFetcher.config.providers.each do |provider_name|
-        provider = ProxyFetcher::Configuration.providers_registry.class_for(provider_name)
-        provider_proxies = provider.fetch_proxies!
+        spawn do
+          provider = ProxyFetcher::Configuration.providers_registry.class_for(provider_name)
+          provider_proxies = provider.fetch_proxies
 
-        @proxies.concat(provider_proxies)
+          channel.send(provider_proxies)
+        end
+      end
+
+      ProxyFetcher.config.providers.each do
+        @proxies.concat(channel.receive)
       end
 
       @proxies
@@ -88,9 +96,8 @@ module ProxyFetcher
     # @return [Array<ProxyFetcher::Proxy>]
     #   list of valid proxies
     def cleanup!
-      # TODO: implement me
-      # valid_proxies = ProxyListValidator.new(@proxies).validate
-      # @proxies &= valid_proxies
+      valid_proxies = ProxyListValidator.new(@proxies).validate
+      @proxies &= valid_proxies
     end
 
     def validate!
