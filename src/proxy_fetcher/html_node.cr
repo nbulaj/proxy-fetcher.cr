@@ -30,7 +30,7 @@ module ProxyFetcher
     private def clear(text : String?)
       return "" if text.nil? || text.empty?
 
-      text.strip.gsub(/[ \t]/i, "")
+      text.strip.gsub(/[\t]/i, " ")
     end
   end
 end
