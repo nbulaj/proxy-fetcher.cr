@@ -5,9 +5,6 @@ module ProxyFetcher
     # @!attribute [r] proxies
     #   @return [Array<ProxyFetcher::Proxy>] Source array of proxies
     getter proxies : Array(Proxy)
-    # @!attribute [r] valid_proxies
-    #   @return [Array<ProxyFetcher::Proxy>] Array of valid proxies after validation
-    getter valid_proxies : Array(Proxy)
 
     # @param [Array<ProxyFetcher::Proxy>] *proxies
     #   Any number of <code>ProxyFetcher::Proxy</code> to validate
@@ -21,14 +18,38 @@ module ProxyFetcher
     # @return [Array<ProxyFetcher::Proxy>]
     #   list of valid proxies
     def validate
+      pool_size = ProxyFetcher.config.pool_size
       target_proxies = @proxies.dup
+      connectable_proxies = [] of Proxy
 
-      # TODO: make it use fibers
-      target_proxies.each do |proxy|
-        @valid_proxies << proxy if proxy.connectable?
+      channel = Channel(Proxy).new(pool_size * 2)
+      done = Channel(Int32).new(pool_size)
+
+      pool_size.times do
+        spawn do
+          loop do
+            proxy = target_proxies.shift?
+
+            if proxy.nil?
+              done.send(0)
+              break
+            end
+
+            channel.send(proxy) if proxy.connectable?
+          end
+        end
       end
 
-      @valid_proxies
+      loop do
+        select
+        when proxy = channel.receive
+          connectable_proxies << proxy
+        when done.receive
+          break
+        end
+      end
+
+      connectable_proxies
     end
   end
 end
