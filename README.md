@@ -34,8 +34,8 @@ and parse all the proxies:
 manager = ProxyFetcher::Manager.new # will immediately load proxy list from the server
 manager.proxies
 
- #=> [#<ProxyFetcher::Proxy:0x00000002879680 @addr="97.77.104.22", @port=3128, @country="USA",
- #     @response_time=5217, @type="HTTP", @anonymity="High">, ... ]
+ #=> [#<ProxyFetcher::Proxy:0x00000002879680 @addr="97.77.104.22", @port=3128,
+ #     @country="USA", @type="HTTP", @anonymity="High">, ... ]
 ```
 
 You can initialize proxy manager without immediate load of the proxy list from the remote server by passing
@@ -74,8 +74,8 @@ If you need raw proxy URLs (like `host:port`) then you can use `raw_proxies` met
 manager = ProxyFetcher::Manager.new
 manager.raw_proxies
 
- # => ["97.77.104.22:3128", "94.23.205.32:3128", "209.79.65.140:8080",
- #     "91.217.42.2:8080", "97.77.104.22:80", "165.234.102.177:8080", ...]
+ # => ["//97.77.104.22:3128", "//94.23.205.32:3128", "//209.79.65.140:8080",
+ #     "//91.217.42.2:8080", "//97.77.104.22:80", "//165.234.102.177:8080", ...]
 ```
 
 You don't need to initialize a new manager every time you want to load actual proxy list from the providers. All you
@@ -84,13 +84,11 @@ need is to refresh the proxy list by calling `#refresh_list!` (or `#fetch!`) met
 ```crystal
 manager.refresh_list! # or manager.fetch!
 
- #=> [#<ProxyFetcher::Proxy:0x00000002879680 @addr="97.77.104.22", @port=3128, @country="USA",
- #     @response_time=5217, @type="HTTP", @anonymity="High">, ... ]
+ #=> [#<ProxyFetcher::Proxy:0x00000002879680 @addr="97.77.104.22", @port=3128,,
+ #     @country="USA", @type="HTTP", @anonymity="High">, ... ]
 ```
 
 ## Configuration
-
-ProxyFetcher is very flexible gem. You can configure the most important parts of the library and use your own solutions.
 
 Default configuration looks as follows:
 
@@ -110,7 +108,7 @@ For example, you can set your custom User-Agent string:
 
 ```crystal
 ProxyFetcher.configure do |config|
-  config.user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'
+  config.user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"
 end
 ```
 
@@ -123,7 +121,6 @@ Currently ProxyFetcher can deal with next proxy providers (services):
 * Proxy Docker
 * Gather Proxy
 * HTTP Tunnel Genius
-* Proxy List
 * XRoxy
 
 ## License
