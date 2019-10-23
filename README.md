@@ -1,6 +1,14 @@
-# ProxyFetcher.cr
+<p align="center">
+  <h3 align="center">ProxyFetcher.cr</h3>
+  <p align="center">Proxy fetching library for Crystal programming language<p>
+  <p align="center">
+    <a href="https://travis-ci.org/nbulaj/proxy-fetcher.cr"><img src="https://travis-ci.org/nbulaj/proxy-fetcher.cr.svg?branch=master"></a>
+    <a href="https://github.com/nbulaj/proxy-fetcher.cr/releases"><img src="https://img.shields.io/github/v/release/nbulaj/proxy-fetcher.cr.svg?maxAge=360"></a>
+    <a href="https://github.com/nbulaj/proxy-fetcher.cr/blob/master/LICENSE"><img src="https://img.shields.io/github/license/nbulaj/proxy-fetcher.cr.svg"></a>
+  </p>
+</p>
 
-[![Build Status](https://travis-ci.org/nbulaj/proxy-fetcher.cr.svg?branch=master)](https://travis-ci.org/nbulaj/proxy-fetcher.cr)
+# About
 
 Crystal port of awesome Ruby [ProxyFetcher gem](https://github.com/nbulaj/proxy_fetcher)
 
