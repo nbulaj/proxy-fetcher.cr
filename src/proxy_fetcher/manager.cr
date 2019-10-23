@@ -76,7 +76,7 @@ module ProxyFetcher
     #   proxy object from the list
     #
     def get!
-      index = proxies.find_index(&.connectable?)
+      index = proxies.index(&.connectable?)
       return if index.nil?
 
       proxy = proxies.delete_at(index)
