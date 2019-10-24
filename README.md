@@ -126,7 +126,6 @@ Currently ProxyFetcher can deal with next proxy providers (services):
 
 * Free Proxy List
 * Free SSL Proxies
-* Proxy Docker
 * Gather Proxy
 * HTTP Tunnel Genius
 * XRoxy
