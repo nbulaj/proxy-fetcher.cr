@@ -132,6 +132,6 @@ Currently ProxyFetcher can deal with next proxy providers (services):
 
 ## License
 
-`proxy_fetcher` is released under the [MIT License](http://www.opensource.org/licenses/MIT).
+`proxy-fetcher.cr` is released under the [MIT License](http://www.opensource.org/licenses/MIT).
 
 Copyright (c) Nikita Bulai (bulajnikita@gmail.com).

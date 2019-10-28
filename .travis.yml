@@ -1,6 +1,14 @@
 language: crystal
+crystal:
+  - latest
+  - nightly
+
 script:
   - make test
   - crystal tool format --check
   - sed -i -e 's:<.*>::g' README.md
   - crystal docs
+
+matrix:
+  allow_failures:
+    - crystal: nightly
