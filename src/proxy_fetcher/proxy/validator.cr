@@ -28,7 +28,7 @@ module ProxyFetcher
 
       response = http_client.get("/")
       response.success?
-    rescue IO::Timeout | OpenSSL::SSL::Error | IO::Error | Errno
+    rescue IO::TimeoutError | OpenSSL::SSL::Error | IO::Error | Socket::Error
       false
     end
 

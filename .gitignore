@@ -12,3 +12,4 @@ main.cr
 shard.lock
 .history/
 cache/
+shard.lock

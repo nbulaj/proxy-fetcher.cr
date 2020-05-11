@@ -129,6 +129,7 @@ Currently ProxyFetcher can deal with next proxy providers (services):
 * Gather Proxy
 * HTTP Tunnel Genius
 * XRoxy
+* Proxypedia
 
 ## License
 
