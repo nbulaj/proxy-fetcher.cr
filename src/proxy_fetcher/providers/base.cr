@@ -65,7 +65,7 @@ module ProxyFetcher
       # @return [Proxy]
       #   new proxy object from the HTML node
       #
-      abstract def to_proxy(*args)
+      abstract def to_proxy(node)
     end
   end
 end

@@ -15,13 +15,12 @@ require "./proxy_fetcher/manager"
 require "./proxy_fetcher/providers/base"
 require "./proxy_fetcher/providers/free_proxy_list"
 require "./proxy_fetcher/providers/free_proxy_list_ssl"
-require "./proxy_fetcher/providers/gather_proxy"
 require "./proxy_fetcher/providers/http_tunnel"
 require "./proxy_fetcher/providers/proxypedia"
 require "./proxy_fetcher/providers/xroxy"
 
 module ProxyFetcher
-  VERSION = "0.1.0"
+  VERSION = "0.2.0"
 
   def self.config
     @@config ||= ProxyFetcher::Configuration.new
